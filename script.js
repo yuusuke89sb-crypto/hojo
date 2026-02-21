@@ -2,6 +2,10 @@
 const STORAGE_KEY = 'hojosya_checklist_state';
 const HEARING_KEY = 'hojosya_hearing_data';
 
+// ===== Google Apps Script URL =====
+// ↓ デプロイ後のウェブアプリURLを貼り付けてください
+const GAS_URL = 'https://script.google.com/macros/s/AKfycby40NNBfzvwCJWohF-OTBpV2Tmc1xVEz9gZkqo1TeGF06bhJR0TnIa4AA71Y25uGFu1/exec';
+
 function loadState() {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
@@ -189,6 +193,122 @@ function resetChecklist() {
 // ===== Print Hearing Sheet =====
 function printHearing() {
   window.print();
+}
+
+// ===== Submit Hearing to Google Sheets =====
+function submitHearing() {
+  const data = loadHearingData();
+
+  // 必須項目チェック
+  if (!data.name || !data.name.trim()) {
+    alert('⚠️ 氏名は必須です。入力してから送信してください。');
+    return;
+  }
+  if (!data.address || !data.address.trim()) {
+    alert('⚠️ 住所は必須です。入力してから送信してください。');
+    return;
+  }
+  if (!data.phone || !data.phone.trim()) {
+    alert('⚠️ 電話番号は必須です。入力してから送信してください。');
+    return;
+  }
+
+  if (!GAS_URL) {
+    alert('⚠️ 送信先が設定されていません。\nscript.js の GAS_URL にGoogle Apps ScriptのURLを設定してください。\n\n詳細は gas_setup_guide.md を参照してください。');
+    return;
+  }
+
+  if (!confirm('ヒアリングシートの内容を送信しますか？')) return;
+
+  // 送信中UI
+  const overlay = document.createElement('div');
+  overlay.id = 'submitOverlay';
+  overlay.innerHTML = `
+    <div style="
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,0.5); display:flex;
+      align-items:center; justify-content:center; z-index:9999;
+    ">
+      <div style="
+        background:white; border-radius:16px; padding:40px 50px;
+        text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.3);
+        font-family:'Noto Sans JP',sans-serif;
+      ">
+        <div style="font-size:36px; margin-bottom:12px;">📤</div>
+        <div style="font-size:16px; font-weight:600; color:#1a5276;">送信中...</div>
+        <div style="font-size:13px; color:#7f8c8d; margin-top:6px;">しばらくお待ちください</div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(data)
+  })
+    .then(() => {
+      overlay.remove();
+      showSubmitResult(true, data.name);
+    })
+    .catch(err => {
+      overlay.remove();
+      showSubmitResult(false);
+      console.error('送信エラー:', err);
+    });
+}
+
+function showSubmitResult(success, name) {
+  const overlay = document.createElement('div');
+  overlay.id = 'resultOverlay';
+
+  if (success) {
+    overlay.innerHTML = `
+      <div style="
+        position:fixed; top:0; left:0; right:0; bottom:0;
+        background:rgba(0,0,0,0.5); display:flex;
+        align-items:center; justify-content:center; z-index:9999;
+        cursor:pointer;
+      " onclick="this.parentElement.remove()">
+        <div style="
+          background:white; border-radius:16px; padding:40px 50px;
+          text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.3);
+          font-family:'Noto Sans JP',sans-serif; max-width:400px;
+        ">
+          <div style="font-size:48px; margin-bottom:12px;">✅</div>
+          <div style="font-size:18px; font-weight:700; color:#27ae60; margin-bottom:8px;">送信完了！</div>
+          <div style="font-size:14px; color:#2c3e50; line-height:1.8;">
+            ${name || ''} さんのヒアリングシートを<br>送信しました。
+          </div>
+          <div style="font-size:12px; color:#7f8c8d; margin-top:16px;">クリックして閉じる</div>
+        </div>
+      </div>
+    `;
+  } else {
+    overlay.innerHTML = `
+      <div style="
+        position:fixed; top:0; left:0; right:0; bottom:0;
+        background:rgba(0,0,0,0.5); display:flex;
+        align-items:center; justify-content:center; z-index:9999;
+        cursor:pointer;
+      " onclick="this.parentElement.remove()">
+        <div style="
+          background:white; border-radius:16px; padding:40px 50px;
+          text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.3);
+          font-family:'Noto Sans JP',sans-serif; max-width:400px;
+        ">
+          <div style="font-size:48px; margin-bottom:12px;">⚠️</div>
+          <div style="font-size:18px; font-weight:700; color:#e74c3c; margin-bottom:8px;">送信に失敗しました</div>
+          <div style="font-size:14px; color:#2c3e50; line-height:1.8;">
+            ネットワーク接続を確認してから<br>もう一度お試しください。
+          </div>
+          <div style="font-size:12px; color:#7f8c8d; margin-top:16px;">クリックして閉じる</div>
+        </div>
+      </div>
+    `;
+  }
+  document.body.appendChild(overlay);
 }
 
 // ===== Init =====
