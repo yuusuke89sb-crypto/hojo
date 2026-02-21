@@ -16,8 +16,8 @@
   --warning: #f39c12;
   --warning-bg: #fef9e7;
   --danger: #e74c3c;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 4px 20px rgba(0,0,0,0.12);
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.12);
   --radius: 12px;
   --radius-sm: 8px;
 }
@@ -44,7 +44,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .header-inner {
@@ -81,7 +81,7 @@ body {
 .progress-bar-bg {
   flex: 1;
   height: 8px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -169,8 +169,15 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== Section Card ===== */
@@ -314,6 +321,62 @@ body {
 .tag-keep {
   background: #fef9e7;
   color: #d4ac0d;
+}
+
+/* ===== Item Links ===== */
+.item-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.item-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid;
+}
+
+.item-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.link-pdf {
+  background: #fdf2f2;
+  color: #c0392b;
+  border-color: #f5c6cb;
+}
+
+.link-pdf:hover {
+  background: #f9e0e0;
+}
+
+.link-doc {
+  background: #eaf2fb;
+  color: #2471a3;
+  border-color: #aed6f1;
+}
+
+.link-doc:hover {
+  background: #d4e6f6;
+}
+
+.link-page {
+  background: #eafaf1;
+  color: #1e8449;
+  border-color: #a9dfbf;
+}
+
+.link-page:hover {
+  background: #d5f5e3;
 }
 
 /* ===== Hearing Sheet ===== */
@@ -491,21 +554,63 @@ textarea {
 
 /* ===== Print ===== */
 @media print {
-  .header { position: static; }
-  .nav-tabs { display: none; }
-  .tab-content { display: block !important; }
-  .btn-group { display: none; }
-  .custom-checkbox { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .checklist-item.checked .custom-checkbox { background: var(--accent) !important; }
+  .header {
+    position: static;
+  }
+
+  .nav-tabs {
+    display: none;
+  }
+
+  .tab-content {
+    display: block !important;
+  }
+
+  .btn-group {
+    display: none;
+  }
+
+  .custom-checkbox {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .checklist-item.checked .custom-checkbox {
+    background: var(--accent) !important;
+  }
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .header { padding: 1.5rem 1rem 1rem; }
-  .header h1 { font-size: 1.2rem; }
-  .nav-tabs { overflow-x: auto; padding: 0 0.5rem; }
-  .nav-tab { padding: 0.6rem 1rem; font-size: 0.82rem; white-space: nowrap; }
-  .form-row, .form-row-3 { grid-template-columns: 1fr; }
-  .checklist-item { padding: 0.8rem 1rem; }
-  .main { padding: 0 0.5rem 2rem; }
+  .header {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .nav-tabs {
+    overflow-x: auto;
+    padding: 0 0.5rem;
+  }
+
+  .nav-tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .checklist-item {
+    padding: 0.8rem 1rem;
+  }
+
+  .main {
+    padding: 0 0.5rem 2rem;
+  }
 }

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>履歴書 | 𠮷村行政書士事務所</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif JP', serif;
+            color: #1a1a1a;
+            background: #e8e8e8;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        /* ===== Auto-fill Banner ===== */
+        .autofill-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1001;
+            box-shadow: 0 2px 12px rgba(39, 174, 96, 0.3);
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        .autofill-banner .close-btn {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .autofill-banner .close-btn:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .autofilled {
+            background: #e8f8f0 !important;
+            transition: background 2s ease;
+        }
+
+        /* ===== Toolbar ===== */
+        .toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .toolbar-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 13px;
+        }
+
+        .toolbar button {
+            padding: 10px 28px;
+            background: white;
+            color: #1a5276;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .toolbar .back-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 13px;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .toolbar .back-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* ===== A4 Page ===== */
+        .page {
+            width: 210mm;
+            margin: 20px auto 80px;
+            padding: 15mm 18mm;
+            background: white;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== Resume Title ===== */
+        .resume-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5em;
+            margin-bottom: 10px;
+        }
+
+        .resume-date {
+            text-align: right;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== Tables ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2px;
+        }
+
+        td,
+        th {
+            border: 1px solid #333;
+            padding: 4px 8px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: normal;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 500;
+            font-size: 12px;
+            white-space: nowrap;
+            width: 80px;
+            text-align: center;
+        }
+
+        /* ===== Editable fields ===== */
+        .editable {
+            min-width: 40px;
+            display: inline-block;
+            padding: 0 2px;
+            color: #2c3e50;
+            cursor: text;
+        }
+
+        .editable:focus {
+            outline: none;
+            background: #e8f4fd;
+        }
+
+        /* ===== Section headers ===== */
+        .section-header-row th {
+            background: #e8eef4;
+            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
+            letter-spacing: 0.2em;
+        }
+
+        /* ===== Identity Section ===== */
+        .name-cell {
+            font-size: 20px;
+            font-weight: 600;
+            height: 50px;
+            padding: 6px 12px;
+        }
+
+        .kana-cell {
+            font-size: 11px;
+            height: 24px;
+            padding: 2px 12px;
+            color: #555;
+        }
+
+        .photo-cell {
+            width: 120px;
+            text-align: center;
+            font-size: 10px;
+            color: #999;
+            vertical-align: middle;
+        }
+
+        /* ===== Layout ===== */
+        .two-col {
+            display: flex;
+            gap: 0;
+        }
+
+        .two-col .col-left {
+            flex: 1;
+        }
+
+        .two-col .col-right {
+            width: 45%;
+        }
+
+        .qualification-row td {
+            height: 28px;
+        }
+
+        .motivation-cell {
+            height: 120px;
+            vertical-align: top;
+            padding: 8px 12px;
+            line-height: 1.8;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #666;
+            margin-top: 12px;
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            body {
+                background: white;
+                font-size: 12px;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .autofill-banner {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+                padding: 12mm 15mm;
+                box-shadow: none;
+                width: 100%;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .page {
+                width: 100%;
+                padding: 10px;
+                margin: 10px auto 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Auto-fill Banner ===== -->
+    <div class="autofill-banner" id="autofillBanner">
+        ✅ ヒアリングシートの入力内容を自動反映しました
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+
+    <!-- ===== Page 1 ===== -->
+    <div class="page" id="page1">
+        <h1 class="resume-title">履　歴　書</h1>
+        <p class="resume-date">
+            <span class="editable" contenteditable="true" data-field="resume-date">令和　　年　　月　　日現在</span>
+        </p>
+
+        <!-- 氏名・基本情報 -->
+        <table>
+            <tr>
+                <th style="width:80px;">フリガナ</th>
+                <td class="kana-cell" colspan="3">
+                    <span class="editable" contenteditable="true" data-field="resume-kana">　</span>
+                </td>
+                <td class="photo-cell" rowspan="4" style="width:120px; height:160px;">
+                    写真を貼る位置<br><br>
+                    縦36〜40mm<br>
+                    横24〜30mm
+                </td>
+            </tr>
+            <tr>
+                <th>氏　名</th>
+                <td class="name-cell" colspan="3">
+                    <span class="editable" contenteditable="true" data-field="resume-name">　</span>
+                </td>
+            </tr>
+            <tr>
+                <th>生年月日</th>
+                <td colspan="3" style="height:28px;">
+                    <span class="editable" contenteditable="true" data-field="resume-birthday">　　　　年　　月　　日生</span>
+                    <span style="margin-left:20px;">（満 <span class="editable" contenteditable="true"
+                            data-field="resume-age">　</span> 歳）</span>
+                    <span style="margin-left:20px;">
+                        <span class="editable" contenteditable="true" data-field="resume-gender">　</span>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>電話番号</th>
+                <td colspan="3" style="height:28px;">
+                    <span class="editable" contenteditable="true" data-field="resume-phone">　</span>
+                    <span style="margin-left:30px;">E-mail：<span class="editable" contenteditable="true"
+                            data-field="resume-email">　</span></span>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th style="width:80px;">フリガナ</th>
+                <td class="kana-cell" colspan="3">
+                    <span class="editable" contenteditable="true" data-field="resume-address-kana">　</span>
+                </td>
+            </tr>
+            <tr>
+                <th>現住所</th>
+                <td colspan="3" style="height:48px; vertical-align:top; padding:6px 12px;">
+                    〒<span class="editable" contenteditable="true" data-field="resume-zipcode">　</span><br>
+                    <span class="editable" contenteditable="true" data-field="resume-address">　</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 学歴・職歴 -->
+        <table style="margin-top:6px;">
+            <tr class="section-header-row">
+                <th colspan="3" style="width:100%;">学歴・職歴</th>
+            </tr>
+            <tr>
+                <th style="width:80px;">年</th>
+                <th style="width:60px;">月</th>
+                <td>学歴・職歴</td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-edu-1">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td colspan="3" style="text-align:center; font-size:12px; color:#666;">── 職歴 ──</td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true"
+                        data-field="resume-work-year1">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true"
+                        data-field="resume-work-month1">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-work-1">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-work-detail">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+        </table>
+
+        <!-- 免許・資格 -->
+        <table style="margin-top:6px;">
+            <tr class="section-header-row">
+                <th colspan="3" style="width:100%;">免許・資格</th>
+            </tr>
+            <tr>
+                <th style="width:80px;">年</th>
+                <th style="width:60px;">月</th>
+                <td>免許・資格</td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-license-1">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-license-2">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true" data-field="resume-license-3">　</span></td>
+            </tr>
+            <tr class="qualification-row">
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td style="text-align:center;"><span class="editable" contenteditable="true">　</span></td>
+                <td><span class="editable" contenteditable="true">　</span></td>
+            </tr>
+        </table>
+
+        <!-- 志望の動機、スキル、希望条件 -->
+        <table style="margin-top:6px;">
+            <tr>
+                <th style="width:120px; text-align:center;">志望の動機<br>特技・スキル</th>
+                <td class="motivation-cell">
+                    <span class="editable" contenteditable="true" data-field="resume-motivation"
+                        style="display:block; min-height:100px;">　</span>
+                </td>
+            </tr>
+        </table>
+
+        <table style="margin-top:2px;">
+            <tr>
+                <th style="width:120px; text-align:center;">通勤時間</th>
+                <td style="width:35%; height:32px;">
+                    <span class="editable" contenteditable="true" data-field="resume-commute">　</span>
+                </td>
+                <th style="width:80px; text-align:center;">扶養家族</th>
+                <td>
+                    <span class="editable" contenteditable="true">　</span> 人
+                </td>
+            </tr>
+            <tr>
+                <th style="text-align:center;">希望勤務条件</th>
+                <td colspan="3" style="height:50px; vertical-align:top; padding:6px 12px;">
+                    <span class="editable" contenteditable="true" data-field="resume-conditions"
+                        style="display:block; min-height:40px;">　</span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="note">
+            ※ 本履歴書はブラウザの「印刷」機能から「PDFとして保存」を選択するとPDFファイルとして保存できます。<br>
+            ※ 各欄はクリックして直接編集できます。ヒアリングシートの入力内容が自動反映されます。
+        </div>
+    </div>
+
+    <!-- ===== Toolbar ===== -->
+    <div class="toolbar">
+        <a href="index.html" class="back-link">← チェックリストに戻る</a>
+        <span class="toolbar-text">各欄をクリックして編集 → 印刷でPDF保存</span>
+        <button onclick="window.print()">🖨️ 印刷 / PDF保存</button>
+    </div>
+
+    <script>
+        // ===== ヒアリングシートからの自動反映 =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const HEARING_KEY = 'hojosya_hearing_data';
+            let data;
+            try {
+                const raw = localStorage.getItem(HEARING_KEY);
+                data = raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                data = null;
+            }
+
+            if (!data) return;
+
+            let filled = false;
+
+            function setField(fieldName, value) {
+                if (!value || (typeof value === 'string' && value.trim() === '')) return;
+                const el = document.querySelector('[data-field="' + fieldName + '"]');
+                if (el) {
+                    el.textContent = value;
+                    el.classList.add('autofilled');
+                    filled = true;
+                }
+            }
+
+            // 現在日付を自動入力
+            const now = new Date();
+            const reiwaYear = now.getFullYear() - 2018;
+            setField('resume-date', '令和' + reiwaYear + '年' + (now.getMonth() + 1) + '月' + now.getDate() + '日現在');
+
+            // 氏名・フリガナ
+            setField('resume-name', data.name);
+            setField('resume-kana', data.name_kana);
+
+            // 生年月日と年齢計算
+            if (data.birthday) {
+                const bd = new Date(data.birthday);
+                if (!isNaN(bd.getTime())) {
+                    const bYear = bd.getFullYear();
+                    const bMonth = bd.getMonth() + 1;
+                    const bDay = bd.getDate();
+
+                    // 和暦変換
+                    let era = '';
+                    if (bYear >= 2019) {
+                        era = '令和' + (bYear - 2018);
+                    } else if (bYear >= 1989) {
+                        era = '平成' + (bYear - 1988);
+                    } else if (bYear >= 1926) {
+                        era = '昭和' + (bYear - 1925);
+                    }
+                    setField('resume-birthday', era + '年' + bMonth + '月' + bDay + '日生');
+
+                    // 年齢計算
+                    let age = now.getFullYear() - bYear;
+                    if (now.getMonth() < bd.getMonth() ||
+                        (now.getMonth() === bd.getMonth() && now.getDate() < bd.getDate())) {
+                        age--;
+                    }
+                    setField('resume-age', String(age));
+                }
+            }
+
+            // 性別
+            setField('resume-gender', data.gender);
+
+            // 電話番号・メール
+            setField('resume-phone', data.phone);
+            setField('resume-email', data.email);
+
+            // 住所
+            setField('resume-address', data.address);
+
+            // 職歴
+            if (data.prev_office) {
+                setField('resume-work-1', data.prev_office + ' 入社（補助者として勤務）');
+            }
+
+            // 業務内容
+            if (data.prev_duties) {
+                setField('resume-work-detail', '担当業務：' + data.prev_duties);
+            }
+
+            // 免許・資格
+            let licenseIndex = 1;
+            if (data.driver_license === 'あり') {
+                setField('resume-license-' + licenseIndex, '普通自動車第一種運転免許 取得');
+                licenseIndex++;
+            }
+            if (data.other_qualifications) {
+                const quals = data.other_qualifications.split(/[、,，]/);
+                quals.forEach(function (q) {
+                    q = q.trim();
+                    if (q && licenseIndex <= 3) {
+                        setField('resume-license-' + licenseIndex, q);
+                        licenseIndex++;
+                    }
+                });
+            }
+            if (data.gyosei_plan === '取得済み') {
+                if (licenseIndex <= 3) {
+                    setField('resume-license-' + licenseIndex, '行政書士試験 合格');
+                }
+            }
+
+            // 志望の動機・スキル
+            var motivationParts = [];
+
+            // PCスキル
+            if (data.pc_skills && data.pc_skills.length > 0) {
+                motivationParts.push('【PCスキル】' + data.pc_skills.join('、'));
+            }
+
+            // 車関係スキル
+            if (data.car_skills && data.car_skills.length > 0) {
+                motivationParts.push('【車関係業務経験】' + data.car_skills.join('、'));
+            }
+
+            // 車庫証明経験
+            if (data.shakosho_exp && data.shakosho_exp !== 'なし') {
+                motivationParts.push('【車庫証明申請経験】' + data.shakosho_exp);
+            }
+
+            // 管轄訪問経験
+            if (data.visited_offices) {
+                motivationParts.push('【訪問経験】' + data.visited_offices);
+            }
+
+            if (motivationParts.length > 0) {
+                setField('resume-motivation', motivationParts.join('\n'));
+            }
+
+            // 通勤
+            setField('resume-commute', data.commute);
+
+            // 希望条件
+            var condParts = [];
+            if (data.work_days) {
+                var daysMap = {
+                    '1日': '週1日', '2日': '週2日', '3日': '週3日',
+                    '4日': '週4日', '5日': '週5日', '応相談': '応相談'
+                };
+                condParts.push('勤務日数：' + (daysMap[data.work_days] || data.work_days));
+            }
+            if (data.work_hours) {
+                condParts.push('勤務時間：' + data.work_hours);
+            }
+            if (data.desired_wage) {
+                condParts.push('希望時給：' + data.desired_wage);
+            }
+            if (data.start_date) {
+                var sd = new Date(data.start_date);
+                if (!isNaN(sd.getTime())) {
+                    condParts.push('勤務開始可能日：' + sd.getFullYear() + '年' + (sd.getMonth() + 1) + '月' + sd.getDate() + '日');
+                }
+            }
+            if (condParts.length > 0) {
+                setField('resume-conditions', condParts.join('　/　'));
+            }
+
+            // バナー表示
+            if (filled) {
+                var banner = document.getElementById('autofillBanner');
+                if (banner) {
+                    banner.style.display = 'block';
+                    setTimeout(function () {
+                        banner.style.opacity = '0';
+                        banner.style.transition = 'opacity 0.5s ease';
+                        setTimeout(function () { banner.style.display = 'none'; }, 500);
+                    }, 5000);
+                }
+
+                setTimeout(function () {
+                    document.querySelectorAll('.autofilled').forEach(function (el) {
+                        el.classList.remove('autofilled');
+                    });
+                }, 3000);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
