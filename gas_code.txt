@@ -1,0 +1,64 @@
+var SITE_URL = 'https://yuusuke89sb-crypto.github.io/hojo';
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var timestamp = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
+
+    var jsonStr = JSON.stringify(data);
+    var encoded = Utilities.base64Encode(Utilities.newBlob(jsonStr).getBytes());
+    var resumeUrl = SITE_URL + '/resume.html#' + encoded;
+    var contractUrl = SITE_URL + '/employment_contract.html#' + encoded;
+
+    var row = [
+      timestamp,
+      data.name || '',
+      data.name_kana || '',
+      data.birthday || '',
+      data.gender || '',
+      data.address || '',
+      data.phone || '',
+      data.email || '',
+      data.emergency_contact || '',
+      data.prev_office || '',
+      data.experience_years || '',
+      data.prev_employment_type || '',
+      data.prev_duties || '',
+      data.shakosho_exp || '',
+      Array.isArray(data.car_skills) ? data.car_skills.join(', ') : (data.car_skills || ''),
+      data.visited_offices || '',
+      Array.isArray(data.pc_skills) ? data.pc_skills.join(', ') : (data.pc_skills || ''),
+      data.driver_license || '',
+      data.own_car || '',
+      data.gyosei_plan || '',
+      data.other_qualifications || '',
+      data.work_days || '',
+      data.work_hours || '',
+      data.desired_wage || '',
+      data.start_date || '',
+      data.commute || '',
+      data.health || '',
+      data.handover_notes || '',
+      data.notes || '',
+      resumeUrl,
+      contractUrl
+    ];
+
+    sheet.appendRow(row);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error', message: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: 'ok' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
