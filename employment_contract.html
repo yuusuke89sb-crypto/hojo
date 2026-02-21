@@ -633,13 +633,7 @@
             try {
                 const hash = window.location.hash.substring(1);
                 if (hash) {
-                    var binary = atob(hash);
-                    var bytes = new Uint8Array(binary.length);
-                    for (var i = 0; i < binary.length; i++) {
-                        bytes[i] = binary.charCodeAt(i);
-                    }
-                    var decoded = new TextDecoder('utf-8').decode(bytes);
-                    data = JSON.parse(decoded);
+                    data = JSON.parse(decodeURIComponent(hash));
                 }
             } catch (e) {
                 data = null;

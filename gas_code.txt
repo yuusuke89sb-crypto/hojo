@@ -6,8 +6,7 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var timestamp = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
 
-    var jsonStr = JSON.stringify(data);
-    var encoded = Utilities.base64Encode(Utilities.newBlob(jsonStr).getBytes());
+    var encoded = encodeURIComponent(JSON.stringify(data));
     var resumeUrl = SITE_URL + '/resume.html#' + encoded;
     var contractUrl = SITE_URL + '/employment_contract.html#' + encoded;
 
