@@ -18,8 +18,8 @@
             font-family: 'Noto Serif JP', serif;
             color: #1a1a1a;
             background: #e8e8e8;
-            line-height: 1.9;
-            font-size: 14px;
+            line-height: 1.8;
+            font-size: 13px;
         }
 
         /* ===== Print Button Bar (screen only) ===== */
@@ -83,7 +83,7 @@
             width: 210mm;
             min-height: 297mm;
             margin: 20px auto 80px;
-            padding: 25mm 22mm 20mm;
+            padding: 18mm 20mm 15mm;
             background: white;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
         }
@@ -128,21 +128,21 @@
         /* ===== Document Structure ===== */
         .doc-title {
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             letter-spacing: 0.3em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
             border-bottom: 3px double #1a1a1a;
         }
 
         .doc-intro {
-            margin-bottom: 18px;
+            margin-bottom: 12px;
             text-indent: 1em;
         }
 
         .article {
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
 
         .article-title {
@@ -170,7 +170,7 @@
         }
 
         .signature-section {
-            margin-top: 30px;
+            margin-top: 20px;
             page-break-inside: avoid;
         }
 
@@ -181,8 +181,8 @@
         }
 
         .sig-block {
-            margin-bottom: 28px;
-            padding: 16px 20px;
+            margin-bottom: 18px;
+            padding: 12px 16px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -299,6 +299,8 @@
         @media print {
             body {
                 background: white;
+                font-size: 12px;
+                line-height: 1.6;
             }
 
             .toolbar {
@@ -311,10 +313,55 @@
 
             .page {
                 margin: 0;
-                padding: 20mm 20mm 15mm;
+                padding: 12mm 18mm 10mm;
                 box-shadow: none;
                 width: 100%;
                 min-height: auto;
+            }
+
+            .doc-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+            }
+
+            .doc-intro {
+                margin-bottom: 8px;
+            }
+
+            .article {
+                margin-bottom: 6px;
+            }
+
+            .article-title {
+                margin-bottom: 1px;
+            }
+
+            .article-body p {
+                margin-bottom: 1px;
+            }
+
+            .signature-section {
+                margin-top: 14px;
+            }
+
+            .sig-block {
+                margin-bottom: 14px;
+                padding: 10px 14px;
+            }
+
+            .sig-row {
+                margin-bottom: 4px;
+            }
+
+            .sig-date {
+                margin-bottom: 16px;
+            }
+
+            .note {
+                margin-top: 14px;
+                padding: 8px;
+                font-size: 11px;
             }
 
             .editable {
@@ -365,9 +412,10 @@
                         contenteditable="true" data-field="contract-start-month">　　</span>月<span
                         class="editable editable-date" contenteditable="true"
                         data-field="contract-start-day">　　</span>日から<span class="editable editable-date"
-                        contenteditable="true">令和　</span>年<span class="editable editable-date"
-                        contenteditable="true">　　</span>月<span class="editable editable-date"
-                        contenteditable="true">　　</span>日までとする。</p>
+                        contenteditable="true" data-field="contract-end-year">令和　</span>年<span
+                        class="editable editable-date" contenteditable="true"
+                        data-field="contract-end-month">　　</span>月<span class="editable editable-date"
+                        contenteditable="true" data-field="contract-end-day">　　</span>日までとする。</p>
                 <p>２　契約期間満了の<span class="editable editable-date"
                         contenteditable="true">１ヶ月</span>前までに甲乙いずれからも書面による異議の申出がない場合は、同一条件でさらに<span
                         class="editable editable-date" contenteditable="true">１年間</span>更新するものとし、以後も同様とする。</p>
@@ -388,7 +436,7 @@
             <p class="article-title">第３条（就業場所）</p>
             <div class="article-body">
                 <p>就業場所は以下のとおりとする。ただし、業務上の必要がある場合は、甲の指示により変更することがある。</p>
-                <p>〒 <span class="editable" contenteditable="true">494-0001</span>　愛知県一宮市木曽川町黒田六ノ通り304番地12</p>
+                <p>〒 <span class="editable" contenteditable="true">493-0001</span>　愛知県一宮市木曽川町黒田六ノ通り304番地12</p>
                 <p>𠮷村行政書士事務所</p>
                 <p>（変更の範囲：愛知県内の官公署・顧客先等への外出業務を含む）</p>
             </div>
@@ -537,7 +585,7 @@
                 <div class="sig-row">
                     <span class="sig-label">代表者</span>
                     <span class="sig-value" style="display:flex; align-items:center; justify-content:space-between;">
-                        <span>行政書士　<span class="editable" contenteditable="true">𠮷村　　　　　</span></span>
+                        <span>行政書士　𠮷村　悠佑</span>
                         <span class="seal-box">印</span>
                     </span>
                 </div>
@@ -611,7 +659,7 @@
             // 住所 → 署名欄
             setField('contract-address', data.address);
 
-            // 勤務開始可能日 → 契約期間開始日
+            // 勤務開始可能日 → 契約期間開始日 + 終了日（1年後）
             if (data.start_date) {
                 const d = new Date(data.start_date);
                 if (!isNaN(d.getTime())) {
@@ -620,6 +668,15 @@
                     setField('contract-start-year', '令和' + reiwa);
                     setField('contract-start-month', String(d.getMonth() + 1));
                     setField('contract-start-day', String(d.getDate()));
+
+                    // 契約終了日 = 開始日の1年後の前日
+                    const endDate = new Date(d);
+                    endDate.setFullYear(endDate.getFullYear() + 1);
+                    endDate.setDate(endDate.getDate() - 1);
+                    const endReiwa = endDate.getFullYear() - 2018;
+                    setField('contract-end-year', '令和' + endReiwa);
+                    setField('contract-end-month', String(endDate.getMonth() + 1));
+                    setField('contract-end-day', String(endDate.getDate()));
                 }
             }
 
