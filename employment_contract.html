@@ -243,6 +243,58 @@
             page-break-before: always;
         }
 
+        /* ===== Auto-fill Banner ===== */
+        .autofill-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1001;
+            box-shadow: 0 2px 12px rgba(39, 174, 96, 0.3);
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        .autofill-banner .close-btn {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .autofill-banner .close-btn:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .autofilled {
+            background: #e8f8f0 !important;
+            border-bottom-color: #27ae60 !important;
+            transition: background 2s ease;
+        }
+
         /* ===== Print Styles ===== */
         @media print {
             body {
@@ -251,6 +303,10 @@
 
             .toolbar {
                 display: none;
+            }
+
+            .autofill-banner {
+                display: none !important;
             }
 
             .page {
@@ -285,25 +341,33 @@
 
 <body>
 
+    <!-- ===== Auto-fill Banner ===== -->
+    <div class="autofill-banner" id="autofillBanner">
+        ✅ ヒアリングシートの入力内容を自動反映しました
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+
     <!-- ===== Page 1 ===== -->
     <div class="page" id="page1">
         <h1 class="doc-title">雇　用　契　約　書</h1>
 
         <p class="doc-intro">
-            𠮷村行政書士事務所（以下「甲」という。）と、<span class="editable editable-wide"
-                contenteditable="true">（補助者氏名）</span>（以下「乙」という。）は、以下のとおり雇用契約を締結する。
+            𠮷村行政書士事務所（以下「甲」という。）と、<span class="editable editable-wide" contenteditable="true"
+                data-field="contract-name">（補助者氏名）</span>（以下「乙」という。）は、以下のとおり雇用契約を締結する。
         </p>
 
         <!-- 第1条 -->
         <div class="article">
             <p class="article-title">第１条（契約期間）</p>
             <div class="article-body">
-                <p>本契約の期間は、<span class="editable editable-date" contenteditable="true">令和　</span>年<span
-                        class="editable editable-date" contenteditable="true">　　</span>月<span
-                        class="editable editable-date" contenteditable="true">　　</span>日から<span
-                        class="editable editable-date" contenteditable="true">令和　</span>年<span
-                        class="editable editable-date" contenteditable="true">　　</span>月<span
-                        class="editable editable-date" contenteditable="true">　　</span>日までとする。</p>
+                <p>本契約の期間は、<span class="editable editable-date" contenteditable="true"
+                        data-field="contract-start-year">令和　</span>年<span class="editable editable-date"
+                        contenteditable="true" data-field="contract-start-month">　　</span>月<span
+                        class="editable editable-date" contenteditable="true"
+                        data-field="contract-start-day">　　</span>日から<span class="editable editable-date"
+                        contenteditable="true">令和　</span>年<span class="editable editable-date"
+                        contenteditable="true">　　</span>月<span class="editable editable-date"
+                        contenteditable="true">　　</span>日までとする。</p>
                 <p>２　契約期間満了の<span class="editable editable-date"
                         contenteditable="true">１ヶ月</span>前までに甲乙いずれからも書面による異議の申出がない場合は、同一条件でさらに<span
                         class="editable editable-date" contenteditable="true">１年間</span>更新するものとし、以後も同様とする。</p>
@@ -349,9 +413,11 @@
         <div class="article">
             <p class="article-title">第５条（勤務日・勤務時間）</p>
             <div class="article-body">
-                <p>１　勤務日は、<span class="editable" contenteditable="true">月曜日から金曜日のうち週　　日</span>とする。</p>
-                <p>２　始業時刻：<span class="editable editable-date" contenteditable="true">　９時００分</span>　　終業時刻：<span
-                        class="editable editable-date" contenteditable="true">１７時００分</span></p>
+                <p>１　勤務日は、<span class="editable" contenteditable="true"
+                        data-field="contract-workdays">月曜日から金曜日のうち週　　日</span>とする。</p>
+                <p>２　始業時刻：<span class="editable editable-date" contenteditable="true"
+                        data-field="contract-start-time">　９時００分</span>　　終業時刻：<span class="editable editable-date"
+                        contenteditable="true" data-field="contract-end-time">１７時００分</span></p>
                 <p>３　休憩時間：<span class="editable editable-date" contenteditable="true">１２時００分</span>から<span
                         class="editable editable-date" contenteditable="true">１３時００分</span>まで（<span
                         class="editable editable-date" contenteditable="true">60</span>分間）</p>
@@ -372,7 +438,8 @@
         <div class="article">
             <p class="article-title">第７条（賃金）</p>
             <div class="article-body">
-                <p>１　時給：金 <span class="editable editable-amount" contenteditable="true">　　　　</span> 円</p>
+                <p>１　時給：金 <span class="editable editable-amount" contenteditable="true"
+                        data-field="contract-wage">　　　　</span> 円</p>
                 <p>２　通勤手当：<span class="editable" contenteditable="true">実費支給（上限月額　　　　円）</span></p>
                 <p>３　賃金締切日：毎月<span class="editable editable-date" contenteditable="true">末日</span></p>
                 <p>４　賃金支払日：翌月<span class="editable editable-date" contenteditable="true">１０日</span>（支払日が休日のときは前日）</p>
@@ -480,12 +547,14 @@
                 <div class="sig-block-title">【乙】労働者</div>
                 <div class="sig-row">
                     <span class="sig-label">住所</span>
-                    <span class="sig-value"><span class="editable editable-wide" contenteditable="true">　</span></span>
+                    <span class="sig-value"><span class="editable editable-wide" contenteditable="true"
+                            data-field="contract-address">　</span></span>
                 </div>
                 <div class="sig-row">
                     <span class="sig-label">氏名</span>
                     <span class="sig-value" style="display:flex; align-items:center; justify-content:space-between;">
-                        <span class="editable editable-wide" contenteditable="true">　</span>
+                        <span class="editable editable-wide" contenteditable="true"
+                            data-field="contract-sign-name">　</span>
                         <span class="seal-box">印</span>
                     </span>
                 </div>
@@ -505,6 +574,113 @@
         <span class="toolbar-text">下線部分をクリックして編集 → 印刷でPDF保存</span>
         <button onclick="window.print()">🖨️ 印刷 / PDF保存</button>
     </div>
+
+    <script>
+        // ===== ヒアリングシートからの自動反映 =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const HEARING_KEY = 'hojosya_hearing_data';
+            let data;
+            try {
+                const raw = localStorage.getItem(HEARING_KEY);
+                data = raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                data = null;
+            }
+
+            if (!data) return;
+
+            let filled = false;
+
+            // ヘルパー: data-field属性で要素を取得して値をセット
+            function setField(fieldName, value) {
+                if (!value || value.trim() === '') return;
+                const el = document.querySelector('[data-field="' + fieldName + '"]');
+                if (el) {
+                    el.textContent = value;
+                    el.classList.add('autofilled');
+                    filled = true;
+                }
+            }
+
+            // 氏名 → 冒頭 + 署名欄
+            if (data.name) {
+                setField('contract-name', data.name);
+                setField('contract-sign-name', data.name);
+            }
+
+            // 住所 → 署名欄
+            setField('contract-address', data.address);
+
+            // 勤務開始可能日 → 契約期間開始日
+            if (data.start_date) {
+                const d = new Date(data.start_date);
+                if (!isNaN(d.getTime())) {
+                    const year = d.getFullYear();
+                    const reiwa = year - 2018; // 令和変換
+                    setField('contract-start-year', '令和' + reiwa);
+                    setField('contract-start-month', String(d.getMonth() + 1));
+                    setField('contract-start-day', String(d.getDate()));
+                }
+            }
+
+            // 希望勤務日数 → 勤務日
+            if (data.work_days && data.work_days !== '') {
+                const daysMap = {
+                    '1日': '月曜日から金曜日のうち週１日',
+                    '2日': '月曜日から金曜日のうち週２日',
+                    '3日': '月曜日から金曜日のうち週３日',
+                    '4日': '月曜日から金曜日のうち週４日',
+                    '5日': '月曜日から金曜日のうち週５日',
+                    '応相談': '月曜日から金曜日のうち週　日（応相談）'
+                };
+                setField('contract-workdays', daysMap[data.work_days] || data.work_days);
+            }
+
+            // 希望勤務時間帯 → 始業・終業
+            if (data.work_hours) {
+                // 「9:00～15:00」のような形式を解析
+                const timeMatch = data.work_hours.match(/(\d{1,2})[：:]?(\d{2})?\s*[～〜~ー－-]\s*(\d{1,2})[：:]?(\d{2})?/);
+                if (timeMatch) {
+                    const startH = timeMatch[1].padStart(2, '　');
+                    const startM = timeMatch[2] || '00';
+                    const endH = timeMatch[3].padStart(2, '　');
+                    const endM = timeMatch[4] || '00';
+                    setField('contract-start-time', startH + '時' + startM + '分');
+                    setField('contract-end-time', endH + '時' + endM + '分');
+                }
+            }
+
+            // 希望時給 → 時給
+            if (data.desired_wage) {
+                // 数字部分だけ抽出
+                const wage = data.desired_wage.replace(/[^0-9,]/g, '');
+                if (wage) {
+                    setField('contract-wage', wage);
+                }
+            }
+
+            // バナー表示
+            if (filled) {
+                const banner = document.getElementById('autofillBanner');
+                if (banner) {
+                    banner.style.display = 'block';
+                    // 5秒後に自動で消える
+                    setTimeout(function () {
+                        banner.style.opacity = '0';
+                        banner.style.transition = 'opacity 0.5s ease';
+                        setTimeout(function () { banner.style.display = 'none'; }, 500);
+                    }, 5000);
+                }
+
+                // ハイライト色を2秒後にフェードアウト
+                setTimeout(function () {
+                    document.querySelectorAll('.autofilled').forEach(function (el) {
+                        el.classList.remove('autofilled');
+                    });
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
 
