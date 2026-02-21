@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>補助者雇用準備チェックリスト | 𠮷村行政書士事務所</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="header-inner">
+    <h1>📋 補助者雇用準備チェックリスト</h1>
+    <p class="subtitle">𠮷村行政書士事務所 ─ 補助者（車庫証明等 車関係担当）受入れ準備</p>
+    <div class="progress-section">
+      <div class="progress-bar-container">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill"></div>
+        </div>
+        <span class="progress-text">0 / 0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Tab Navigation ===== -->
+<nav class="nav-tabs">
+  <button class="nav-tab active" data-tab="tab-requirements">📌 必要要件<span class="badge">5</span></button>
+  <button class="nav-tab" data-tab="tab-documents">📄 必要書類<span class="badge">12</span></button>
+  <button class="nav-tab" data-tab="tab-hearing">🎤 ヒアリングシート</button>
+</nav>
+
+<!-- ===== Main Content ===== -->
+<main class="main">
+
+  <!-- ========== Tab 1: Requirements ========== -->
+  <div id="tab-requirements" class="tab-content active">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title"><span class="icon">⚖️</span> 法的要件の確認</div>
+        <span class="section-count">0 / 3</span>
+      </div>
+      <ul class="checklist">
+        <li class="checklist-item" data-id="req-1">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">欠格事由に該当しないことの確認</div>
+            <div class="item-desc">行政書士法第2条の2に定める欠格事由（禁固刑以上の刑の執行等）に該当しないかを確認</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="req-2">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">秘密保持義務の説明・確認</div>
+            <div class="item-desc">業務上知り得た秘密を守る義務があることを説明し、理解を確認</div>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="req-3">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">行政書士の指揮監督下で業務を行うことの確認</div>
+            <div class="item-desc">補助者は単独で行政書士業務を行えず、必ず行政書士の指揮命令・監督の下で業務を行うことを確認</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title"><span class="icon">🏛️</span> 行政書士会への届出</div>
+        <span class="section-count">0 / 2</span>
+      </div>
+      <ul class="checklist">
+        <li class="checklist-item" data-id="req-4">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">愛知県行政書士会への補助者設置届の提出</div>
+            <div class="item-desc">補助者規則第7条に基づき、補助者設置届（様式第1号）と誓約書（様式第2号）を提出する</div>
+            <span class="item-tag tag-submit">📮 行政書士会提出</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="req-5">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">補助者証の取得</div>
+            <div class="item-desc">行政書士会から補助者証の交付を受ける（業務時は常に携帯が必要）</div>
+            <span class="item-tag tag-submit">📮 行政書士会から交付</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-danger" onclick="resetChecklist()">🔄 チェックをリセット</button>
+    </div>
+  </div>
+
+  <!-- ========== Tab 2: Documents ========== -->
+  <div id="tab-documents" class="tab-content">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title"><span class="icon">🏛️</span> 行政書士会提出書類</div>
+        <span class="section-count">0 / 4</span>
+      </div>
+      <ul class="checklist">
+        <li class="checklist-item" data-id="doc-1">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">補助者設置届（様式第1号）</div>
+            <div class="item-desc">愛知県行政書士会会長宛に提出。補助者の氏名・住所・設置年月日等を記載</div>
+            <span class="item-tag tag-submit">📮 行政書士会提出</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-2">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">誓約書（様式第2号）</div>
+            <div class="item-desc">補助者本人が署名・押印。会則や補助者規則に従い業務を行うことを誓約</div>
+            <span class="item-tag tag-submit">📮 行政書士会提出</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-3">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">補助者証用 証明写真</div>
+            <div class="item-desc">縦3cm×横2.5cm程度。補助者証に使用するもの</div>
+            <span class="item-tag tag-submit">📮 行政書士会提出</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-4">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">雇用契約書の写し</div>
+            <div class="item-desc">行政書士会への届出時に求められる場合あり</div>
+            <span class="item-tag tag-submit">📮 行政書士会提出（場合あり）</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title"><span class="icon">📁</span> 事務所保管書類（雇用手続き）</div>
+        <span class="section-count">0 / 8</span>
+      </div>
+      <ul class="checklist">
+        <li class="checklist-item" data-id="doc-5">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">雇用契約書（労働条件通知書）</div>
+            <div class="item-desc">労働基準法に基づき、労働条件を書面で明示。双方署名・押印</div>
+            <span class="item-tag tag-keep">📂 双方保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-6">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">履歴書</div>
+            <div class="item-desc">写真貼付。職歴・学歴を確認</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-7">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">住民票の写し</div>
+            <div class="item-desc">本籍地記載は不要。マイナンバー記載なしのもの</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-8">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">本人確認書類の写し（運転免許証等）</div>
+            <div class="item-desc">身元確認のため。運転免許証・マイナンバーカード（表面）等</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-9">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">マイナンバー関連書類</div>
+            <div class="item-desc">源泉徴収・社会保険手続きに必要。番号確認と本人確認をセットで実施</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-10">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">給与所得者の扶養控除等（異動）申告書</div>
+            <div class="item-desc">源泉徴収の甲欄・乙欄の判定に必要</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-11">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">前職の源泉徴収票</div>
+            <div class="item-desc">年末調整に必要。前の行政書士事務所から取得</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+        <li class="checklist-item" data-id="doc-12">
+          <div class="custom-checkbox"></div>
+          <div class="item-content">
+            <div class="item-label">雇用保険被保険者証</div>
+            <div class="item-desc">前職で加入していた場合。被保険者番号の確認に必要</div>
+            <span class="item-tag tag-keep">📂 事務所保管</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-danger" onclick="resetChecklist()">🔄 チェックをリセット</button>
+      <a href="employment_contract.html" class="btn btn-primary" target="_blank">📝 雇用契約書を開く</a>
+    </div>
+  </div>
+
+  <!-- ========== Tab 3: Hearing Sheet ========== -->
+  <div id="tab-hearing" class="tab-content">
+    <div class="section-card">
+      <form id="hearing-form" class="hearing-form">
+
+        <!-- 基本情報 -->
+        <div class="form-section-title">👤 基本情報</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>氏名<span class="required">必須</span></label>
+            <input type="text" name="name" placeholder="例：山田 太郎">
+          </div>
+          <div class="form-group">
+            <label>フリガナ<span class="required">必須</span></label>
+            <input type="text" name="name_kana" placeholder="例：ヤマダ タロウ">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>生年月日<span class="required">必須</span></label>
+            <input type="date" name="birthday">
+          </div>
+          <div class="form-group">
+            <label>性別</label>
+            <div class="radio-group">
+              <label><input type="radio" name="gender" value="男性"> 男性</label>
+              <label><input type="radio" name="gender" value="女性"> 女性</label>
+              <label><input type="radio" name="gender" value="その他"> その他</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>住所<span class="required">必須</span></label>
+          <input type="text" name="address" placeholder="例：愛知県一宮市○○町○○番地">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>電話番号<span class="required">必須</span></label>
+            <input type="tel" name="phone" placeholder="例：090-1234-5678">
+          </div>
+          <div class="form-group">
+            <label>メールアドレス</label>
+            <input type="email" name="email" placeholder="例：example@mail.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>緊急連絡先（氏名・続柄・電話番号）</label>
+          <input type="text" name="emergency_contact" placeholder="例：山田 花子（妻）080-9876-5432">
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- 職歴・経験 -->
+        <div class="form-section-title">💼 職歴・業務経験</div>
+        <div class="form-group">
+          <label>前職の行政書士事務所名</label>
+          <input type="text" name="prev_office" placeholder="例：○○行政書士事務所">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>補助者としての勤務年数</label>
+            <input type="text" name="experience_years" placeholder="例：3年6ヶ月">
+          </div>
+          <div class="form-group">
+            <label>前職での雇用形態</label>
+            <select name="prev_employment_type">
+              <option value="">選択してください</option>
+              <option value="正社員">正社員</option>
+              <option value="パート">パート</option>
+              <option value="アルバイト">アルバイト</option>
+              <option value="契約社員">契約社員</option>
+              <option value="その他">その他</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>担当していた主な業務内容<span class="required">必須</span></label>
+          <textarea name="prev_duties" placeholder="例：車庫証明申請書の作成・提出、自動車登録手続きの補助、顧客対応など"></textarea>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- 車関係業務 -->
+        <div class="form-section-title">🚗 車庫証明・車関係業務の経験</div>
+        <div class="form-group">
+          <label>車庫証明（自動車保管場所証明）の申請経験</label>
+          <div class="radio-group">
+            <label><input type="radio" name="shakosho_exp" value="豊富にあり"> 豊富にあり</label>
+            <label><input type="radio" name="shakosho_exp" value="あり"> あり</label>
+            <label><input type="radio" name="shakosho_exp" value="少しあり"> 少しあり</label>
+            <label><input type="radio" name="shakosho_exp" value="なし"> なし</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>対応可能な車関係業務（該当するものすべてにチェック）</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="car_skills" value="車庫証明申請"> 車庫証明申請</label>
+            <label><input type="checkbox" name="car_skills" value="自動車登録（新規・移転・変更）"> 自動車登録</label>
+            <label><input type="checkbox" name="car_skills" value="軽自動車届出"> 軽自動車届出</label>
+            <label><input type="checkbox" name="car_skills" value="名義変更"> 名義変更</label>
+            <label><input type="checkbox" name="car_skills" value="ナンバー変更"> ナンバー変更</label>
+            <label><input type="checkbox" name="car_skills" value="抹消登録"> 抹消登録</label>
+            <label><input type="checkbox" name="car_skills" value="出張封印"> 出張封印</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>管轄の警察署・運輸支局への訪問経験がある場所</label>
+          <textarea name="visited_offices" placeholder="例：一宮警察署、岩倉警察署、愛知運輸支局（名古屋）等"></textarea>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- スキル -->
+        <div class="form-section-title">💻 スキル・資格</div>
+        <div class="form-group">
+          <label>PCスキル</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="pc_skills" value="Word"> Word</label>
+            <label><input type="checkbox" name="pc_skills" value="Excel"> Excel</label>
+            <label><input type="checkbox" name="pc_skills" value="PDF編集"> PDF編集</label>
+            <label><input type="checkbox" name="pc_skills" value="業務用ソフト"> 業務用ソフト</label>
+            <label><input type="checkbox" name="pc_skills" value="OSS（ワンストップサービス）"> OSS</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>運転免許証の有無<span class="required">必須</span></label>
+            <div class="radio-group">
+              <label><input type="radio" name="driver_license" value="あり"> あり</label>
+              <label><input type="radio" name="driver_license" value="なし"> なし</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>自家用車の使用可否（外出業務用）</label>
+            <div class="radio-group">
+              <label><input type="radio" name="own_car" value="使用可"> 使用可</label>
+              <label><input type="radio" name="own_car" value="使用不可"> 使用不可</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>行政書士資格の取得予定・意向</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gyosei_plan" value="取得済み"> 取得済み</label>
+            <label><input type="radio" name="gyosei_plan" value="受験予定"> 受験予定</label>
+            <label><input type="radio" name="gyosei_plan" value="興味あり"> 興味あり</label>
+            <label><input type="radio" name="gyosei_plan" value="予定なし"> 予定なし</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>その他保有資格</label>
+          <input type="text" name="other_qualifications" placeholder="例：日商簿記2級、宅地建物取引士 等">
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- 勤務条件 -->
+        <div class="form-section-title">⏰ 希望勤務条件</div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>希望勤務日数（週）</label>
+            <select name="work_days">
+              <option value="">選択</option>
+              <option value="1日">週1日</option>
+              <option value="2日">週2日</option>
+              <option value="3日">週3日</option>
+              <option value="4日">週4日</option>
+              <option value="5日">週5日</option>
+              <option value="応相談">応相談</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>希望勤務時間帯</label>
+            <input type="text" name="work_hours" placeholder="例：9:00～15:00">
+          </div>
+          <div class="form-group">
+            <label>希望時給</label>
+            <input type="text" name="desired_wage" placeholder="例：1,200円">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>勤務開始可能日</label>
+          <input type="date" name="start_date">
+        </div>
+        <div class="form-group">
+          <label>通勤手段・所要時間</label>
+          <input type="text" name="commute" placeholder="例：自家用車で約20分">
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- その他 -->
+        <div class="form-section-title">📝 その他</div>
+        <div class="form-group">
+          <label>健康状態</label>
+          <div class="radio-group">
+            <label><input type="radio" name="health" value="良好"> 良好</label>
+            <label><input type="radio" name="health" value="持病等あり（備考欄に記載）"> 持病等あり</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>引継ぎにあたって確認・共有しておきたいこと</label>
+          <textarea name="handover_notes" placeholder="例：既存の顧客リスト、進行中の案件、使用しているソフトウェア等"></textarea>
+        </div>
+        <div class="form-group">
+          <label>その他特記事項・質問</label>
+          <textarea name="notes" placeholder="自由記入"></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger" onclick="resetAll()">🗑️ 全データリセット</button>
+          <button type="button" class="btn btn-secondary" onclick="printHearing()">🖨️ 印刷</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>𠮷村行政書士事務所 ─ 補助者雇用準備ツール</p>
+  <p>入力内容はブラウザのローカルストレージに自動保存されます</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

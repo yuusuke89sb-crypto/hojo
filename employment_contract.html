@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雇用契約書 | 𠮷村行政書士事務所</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif JP', serif;
+            color: #1a1a1a;
+            background: #e8e8e8;
+            line-height: 1.9;
+            font-size: 14px;
+        }
+
+        /* ===== Print Button Bar (screen only) ===== */
+        .toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .toolbar-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 13px;
+        }
+
+        .toolbar button {
+            padding: 10px 28px;
+            background: white;
+            color: #1a5276;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .toolbar .back-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 13px;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .toolbar .back-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* ===== A4 Page ===== */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto 80px;
+            padding: 25mm 22mm 20mm;
+            background: white;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== Editable fields ===== */
+        .editable {
+            border-bottom: 1px solid #aaa;
+            min-width: 60px;
+            display: inline-block;
+            padding: 0 4px;
+            color: #2c3e50;
+            background: #fafafa;
+            cursor: text;
+            transition: background 0.2s;
+        }
+
+        .editable:hover {
+            background: #f0f7ff;
+        }
+
+        .editable:focus {
+            outline: none;
+            background: #e8f4fd;
+            border-bottom-color: #2980b9;
+            border-bottom-width: 2px;
+        }
+
+        .editable-wide {
+            min-width: 200px;
+        }
+
+        .editable-date {
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .editable-amount {
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* ===== Document Structure ===== */
+        .doc-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px double #1a1a1a;
+        }
+
+        .doc-intro {
+            margin-bottom: 18px;
+            text-indent: 1em;
+        }
+
+        .article {
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .article-body {
+            padding-left: 1em;
+        }
+
+        .article-body p {
+            margin-bottom: 2px;
+        }
+
+        .sub-item {
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        .sub-item::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+        }
+
+        .signature-section {
+            margin-top: 30px;
+            page-break-inside: avoid;
+        }
+
+        .sig-date {
+            text-align: right;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .sig-block {
+            margin-bottom: 28px;
+            padding: 16px 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .sig-block-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        .sig-row {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 6px;
+            gap: 8px;
+        }
+
+        .sig-label {
+            min-width: 60px;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .sig-value {
+            flex: 1;
+            border-bottom: 1px solid #ccc;
+            min-height: 24px;
+            padding: 0 4px;
+        }
+
+        .seal-box {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 50px;
+            font-size: 10px;
+            color: #aaa;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+
+        /* ===== Page 2 ===== */
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                padding: 20mm 20mm 15mm;
+                box-shadow: none;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .editable {
+                border-bottom: 1px solid #999;
+                background: transparent;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .page {
+                width: 100%;
+                min-height: auto;
+                padding: 15px;
+                margin: 10px auto 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Page 1 ===== -->
+    <div class="page" id="page1">
+        <h1 class="doc-title">雇　用　契　約　書</h1>
+
+        <p class="doc-intro">
+            𠮷村行政書士事務所（以下「甲」という。）と、<span class="editable editable-wide"
+                contenteditable="true">（補助者氏名）</span>（以下「乙」という。）は、以下のとおり雇用契約を締結する。
+        </p>
+
+        <!-- 第1条 -->
+        <div class="article">
+            <p class="article-title">第１条（契約期間）</p>
+            <div class="article-body">
+                <p>本契約の期間は、<span class="editable editable-date" contenteditable="true">令和　</span>年<span
+                        class="editable editable-date" contenteditable="true">　　</span>月<span
+                        class="editable editable-date" contenteditable="true">　　</span>日から<span
+                        class="editable editable-date" contenteditable="true">令和　</span>年<span
+                        class="editable editable-date" contenteditable="true">　　</span>月<span
+                        class="editable editable-date" contenteditable="true">　　</span>日までとする。</p>
+                <p>２　契約期間満了の<span class="editable editable-date"
+                        contenteditable="true">１ヶ月</span>前までに甲乙いずれからも書面による異議の申出がない場合は、同一条件でさらに<span
+                        class="editable editable-date" contenteditable="true">１年間</span>更新するものとし、以後も同様とする。</p>
+            </div>
+        </div>
+
+        <!-- 第2条 -->
+        <div class="article">
+            <p class="article-title">第２条（試用期間）</p>
+            <div class="article-body">
+                <p>試用期間は、雇用開始日から<span class="editable editable-date"
+                        contenteditable="true">３ヶ月間</span>とする。試用期間中の労働条件は本契約と同一とする。</p>
+            </div>
+        </div>
+
+        <!-- 第3条 -->
+        <div class="article">
+            <p class="article-title">第３条（就業場所）</p>
+            <div class="article-body">
+                <p>就業場所は以下のとおりとする。ただし、業務上の必要がある場合は、甲の指示により変更することがある。</p>
+                <p>〒 <span class="editable" contenteditable="true">494-0001</span>　愛知県一宮市木曽川町黒田六ノ通り304番地12</p>
+                <p>𠮷村行政書士事務所</p>
+                <p>（変更の範囲：愛知県内の官公署・顧客先等への外出業務を含む）</p>
+            </div>
+        </div>
+
+        <!-- 第4条 -->
+        <div class="article">
+            <p class="article-title">第４条（従事すべき業務）</p>
+            <div class="article-body">
+                <p>乙は、甲の行政書士業務の補助者として、甲の指揮命令・監督の下、以下の業務に従事する。</p>
+                <div class="sub-item" data-num="(1)">自動車保管場所証明（車庫証明）の申請書類の作成補助・提出・受取り</div>
+                <div class="sub-item" data-num="(2)">自動車登録（新規・移転・変更・抹消）に関する書類の作成補助・提出・受取り</div>
+                <div class="sub-item" data-num="(3)">軽自動車届出に関する書類の作成補助・提出・受取り</div>
+                <div class="sub-item" data-num="(4)">出張封印に関する業務の補助</div>
+                <div class="sub-item" data-num="(5)">上記に付随する顧客対応・電話応対・事務処理全般</div>
+                <div class="sub-item" data-num="(6)">その他甲が指示する行政書士業務の補助</div>
+                <p style="margin-top:4px">（変更の範囲：甲が取り扱う行政書士業務全般の補助）</p>
+            </div>
+        </div>
+
+        <!-- 第5条 -->
+        <div class="article">
+            <p class="article-title">第５条（勤務日・勤務時間）</p>
+            <div class="article-body">
+                <p>１　勤務日は、<span class="editable" contenteditable="true">月曜日から金曜日のうち週　　日</span>とする。</p>
+                <p>２　始業時刻：<span class="editable editable-date" contenteditable="true">　９時００分</span>　　終業時刻：<span
+                        class="editable editable-date" contenteditable="true">１７時００分</span></p>
+                <p>３　休憩時間：<span class="editable editable-date" contenteditable="true">１２時００分</span>から<span
+                        class="editable editable-date" contenteditable="true">１３時００分</span>まで（<span
+                        class="editable editable-date" contenteditable="true">60</span>分間）</p>
+                <p>４　所定労働時間を超える労働の有無：<span class="editable" contenteditable="true">原則なし（業務の都合によりある場合あり）</span></p>
+            </div>
+        </div>
+
+        <!-- 第6条 -->
+        <div class="article">
+            <p class="article-title">第６条（休日・休暇）</p>
+            <div class="article-body">
+                <p>１　休日は、<span class="editable" contenteditable="true">土曜日、日曜日、国民の祝日、年末年始（12/29～1/3）</span>とする。</p>
+                <p>２　年次有給休暇は、労働基準法の定めに従い付与する。</p>
+            </div>
+        </div>
+
+        <!-- 第7条 -->
+        <div class="article">
+            <p class="article-title">第７条（賃金）</p>
+            <div class="article-body">
+                <p>１　時給：金 <span class="editable editable-amount" contenteditable="true">　　　　</span> 円</p>
+                <p>２　通勤手当：<span class="editable" contenteditable="true">実費支給（上限月額　　　　円）</span></p>
+                <p>３　賃金締切日：毎月<span class="editable editable-date" contenteditable="true">末日</span></p>
+                <p>４　賃金支払日：翌月<span class="editable editable-date" contenteditable="true">１０日</span>（支払日が休日のときは前日）</p>
+                <p>５　支払方法：<span class="editable" contenteditable="true">乙の指定する金融機関口座への振込み</span></p>
+                <p>６　昇給：<span class="editable" contenteditable="true">業務習熟度・勤務状況に応じて甲が判断する</span></p>
+                <p>７　賞与：<span class="editable" contenteditable="true">なし</span></p>
+                <p>８　退職手当：<span class="editable" contenteditable="true">なし</span></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== Page 2 ===== -->
+    <div class="page page-break" id="page2">
+
+        <!-- 第8条 -->
+        <div class="article">
+            <p class="article-title">第８条（退職・解雇）</p>
+            <div class="article-body">
+                <p>１　乙が退職を希望する場合は、少なくとも<span class="editable editable-date"
+                        contenteditable="true">30日</span>前までに甲に書面で申し出るものとする。</p>
+                <p>２　甲は、以下の事由に該当する場合、乙を解雇することがある。</p>
+                <div class="sub-item" data-num="(1)">勤務成績が著しく不良で、改善の見込みがないとき</div>
+                <div class="sub-item" data-num="(2)">業務上の指示・命令に従わないとき</div>
+                <div class="sub-item" data-num="(3)">秘密保持義務に違反したとき</div>
+                <div class="sub-item" data-num="(4)">その他、やむを得ない事由があるとき</div>
+                <p style="margin-top:4px">３　甲が乙を解雇する場合は、少なくとも30日前に予告するか、30日分以上の平均賃金を支払う。</p>
+            </div>
+        </div>
+
+        <!-- 第9条 -->
+        <div class="article">
+            <p class="article-title">第９条（補助者としての義務）</p>
+            <div class="article-body">
+                <p>１　乙は、行政書士法および愛知県行政書士会の会則・諸規則ならびに補助者規則を遵守し、常に甲の指揮監督の下で業務を行うものとする。</p>
+                <p>２　乙は、補助者として単独で行政書士業務を行ってはならず、行政書士の名をもって法律相談に応じ、または報酬を受けて業務を受託してはならない。</p>
+                <p>３　乙は、業務遂行にあたり、補助者証を常に携帯しなければならない。</p>
+            </div>
+        </div>
+
+        <!-- 第10条 -->
+        <div class="article">
+            <p class="article-title">第１０条（秘密保持）</p>
+            <div class="article-body">
+                <p>１　乙は、業務上知り得た甲の顧客情報、業務内容、事務所の経営に関する情報その他一切の秘密を、在職中はもちろん退職後も第三者に漏洩してはならない。</p>
+                <p>２　乙は、業務に関連する書類・データ等を事務所外に持ち出す場合は、事前に甲の許可を得なければならない。</p>
+            </div>
+        </div>
+
+        <!-- 第11条 -->
+        <div class="article">
+            <p class="article-title">第１１条（損害賠償）</p>
+            <div class="article-body">
+                <p>乙が故意または重大な過失により甲または甲の顧客に損害を与えた場合は、乙はその損害を賠償する責任を負う。</p>
+            </div>
+        </div>
+
+        <!-- 第12条 -->
+        <div class="article">
+            <p class="article-title">第１２条（社会保険等）</p>
+            <div class="article-body">
+                <p>雇用保険、健康保険、厚生年金保険等の加入については、法令の定めるところによる。</p>
+            </div>
+        </div>
+
+        <!-- 第13条 -->
+        <div class="article">
+            <p class="article-title">第１３条（その他）</p>
+            <div class="article-body">
+                <p>本契約に定めのない事項については、労働基準法その他の法令の定めるところにより、甲乙誠意をもって協議のうえ解決するものとする。</p>
+            </div>
+        </div>
+
+        <!-- 日付・署名 -->
+        <div class="signature-section">
+            <p style="text-align:center; margin-bottom:16px; font-size:13px; color:#666;">
+                本契約の成立を証するため、本書２通を作成し、甲乙各１通を保有する。</p>
+
+            <p class="sig-date">
+                <span class="editable editable-date" contenteditable="true">令和　</span>年<span
+                    class="editable editable-date" contenteditable="true">　　</span>月<span class="editable editable-date"
+                    contenteditable="true">　　</span>日
+            </p>
+
+            <div class="sig-block">
+                <div class="sig-block-title">【甲】使用者</div>
+                <div class="sig-row">
+                    <span class="sig-label">所在地</span>
+                    <span class="sig-value">愛知県一宮市木曽川町黒田六ノ通り304番地12</span>
+                </div>
+                <div class="sig-row">
+                    <span class="sig-label">事務所名</span>
+                    <span class="sig-value">𠮷村行政書士事務所</span>
+                </div>
+                <div class="sig-row">
+                    <span class="sig-label">代表者</span>
+                    <span class="sig-value" style="display:flex; align-items:center; justify-content:space-between;">
+                        <span>行政書士　<span class="editable" contenteditable="true">𠮷村　　　　　</span></span>
+                        <span class="seal-box">印</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="sig-block">
+                <div class="sig-block-title">【乙】労働者</div>
+                <div class="sig-row">
+                    <span class="sig-label">住所</span>
+                    <span class="sig-value"><span class="editable editable-wide" contenteditable="true">　</span></span>
+                </div>
+                <div class="sig-row">
+                    <span class="sig-label">氏名</span>
+                    <span class="sig-value" style="display:flex; align-items:center; justify-content:space-between;">
+                        <span class="editable editable-wide" contenteditable="true">　</span>
+                        <span class="seal-box">印</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="note">
+                ※ 本契約書はブラウザの「印刷」機能から「PDFとして保存」を選択するとPDFファイルとして保存できます。<br>
+                ※ 下線部分はクリックして直接編集できます。編集後に印刷・PDF保存してください。
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== Toolbar ===== -->
+    <div class="toolbar">
+        <a href="index.html" class="back-link">← チェックリストに戻る</a>
+        <span class="toolbar-text">下線部分をクリックして編集 → 印刷でPDF保存</span>
+        <button onclick="window.print()">🖨️ 印刷 / PDF保存</button>
+    </div>
+
+</body>
+
+</html>
