@@ -7,6 +7,10 @@
  * セットアップ方法は gas_setup_guide.md を参照してください。
  */
 
+// ===== 設定 =====
+// GitHub Pages の URL を設定してください（末尾にスラッシュなし）
+var SITE_URL = 'https://yuusuke89sb-crypto.github.io/hojo';
+
 // POSTリクエストを受け取る関数
 function doPost(e) {
     try {
@@ -17,6 +21,13 @@ function doPost(e) {
 
         // 送信日時
         var timestamp = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
+
+        // データをBase64エンコードしてリンク用URLを生成
+        var jsonStr = JSON.stringify(data);
+        var encoded = Utilities.base64Encode(Utilities.newBlob(jsonStr).getBytes());
+
+        var resumeUrl = SITE_URL + '/resume.html#' + encoded;
+        var contractUrl = SITE_URL + '/employment_contract.html#' + encoded;
 
         // データを行として追加
         var row = [
@@ -48,7 +59,9 @@ function doPost(e) {
             data.commute || '',
             data.health || '',
             data.handover_notes || '',
-            data.notes || ''
+            data.notes || '',
+            resumeUrl,
+            contractUrl
         ];
 
         sheet.appendRow(row);
@@ -60,6 +73,8 @@ function doPost(e) {
         //          + '氏名: ' + (data.name || '') + '\n'
         //          + '電話: ' + (data.phone || '') + '\n'
         //          + '住所: ' + (data.address || '') + '\n\n'
+        //          + '📄 履歴書: ' + resumeUrl + '\n'
+        //          + '📝 雇用契約書: ' + contractUrl + '\n\n'
         //          + 'スプレッドシートで確認してください。';
         // GmailApp.sendEmail(recipient, subject, body);
 

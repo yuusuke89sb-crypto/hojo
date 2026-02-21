@@ -516,11 +516,25 @@
         document.addEventListener('DOMContentLoaded', function () {
             const HEARING_KEY = 'hojosya_hearing_data';
             let data;
+
+            // URLハッシュからデータを読み込み（スプレッドシートリンク用）
             try {
-                const raw = localStorage.getItem(HEARING_KEY);
-                data = raw ? JSON.parse(raw) : null;
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    data = JSON.parse(decodeURIComponent(atob(hash)));
+                }
             } catch (e) {
                 data = null;
+            }
+
+            // フォールバック: localStorageから読み込み
+            if (!data) {
+                try {
+                    const raw = localStorage.getItem(HEARING_KEY);
+                    data = raw ? JSON.parse(raw) : null;
+                } catch (e) {
+                    data = null;
+                }
             }
 
             if (!data) return;
