@@ -554,22 +554,184 @@ textarea {
 
 /* ===== Print ===== */
 @media print {
-  .header {
-    position: static;
+
+  /* ページ設定 */
+  @page {
+    size: A4;
+    margin: 10mm 12mm;
   }
 
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-size: 9pt;
+    line-height: 1.3;
+    background: white;
+    color: #000;
+  }
+
+  /* ヘッダーを最小化 */
+  .header {
+    position: static;
+    padding: 8px 12px 6px;
+    background: #1a5276 !important;
+    box-shadow: none;
+    page-break-after: avoid;
+  }
+
+  .header h1 {
+    font-size: 12pt;
+    margin-bottom: 0;
+  }
+
+  .header .subtitle {
+    font-size: 8pt;
+    margin: 0;
+  }
+
+  /* プログレスバーを非表示 */
+  .progress-section {
+    display: none;
+  }
+
+  /* タブナビゲーションを非表示 */
   .nav-tabs {
     display: none;
   }
 
+  /* ヒアリングシートのみ表示（他のタブを非表示に） */
   .tab-content {
+    display: none !important;
+  }
+
+  #tab-hearing {
     display: block !important;
   }
 
+  /* ボタンを非表示 */
   .btn-group {
+    display: none !important;
+  }
+
+  /* フッターを非表示 */
+  .footer {
     display: none;
   }
 
+  /* メインコンテンツの余白を最小化 */
+  .main {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  /* セクションカードを最小化 */
+  .section-card {
+    box-shadow: none;
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 1px solid #ccc;
+  }
+
+  /* フォーム全体のパディング最小化 */
+  .hearing-form {
+    padding: 6px 10px;
+  }
+
+  /* セクション見出しをコンパクトに */
+  .form-section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid #1a5276;
+    page-break-after: avoid;
+  }
+
+  /* 区切り線をコンパクトに */
+  .form-divider {
+    margin: 6px 0;
+    border-top: 1px solid #ccc;
+  }
+
+  /* フォームグループのマージンを最小化 */
+  .form-group {
+    margin-bottom: 3px;
+  }
+
+  .form-group label {
+    font-size: 8pt;
+    font-weight: 600;
+    margin-bottom: 1px;
+    color: #333;
+  }
+
+  .form-group label .required {
+    font-size: 7pt;
+  }
+
+  /* 入力フィールドをコンパクトに */
+  input[type="text"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"],
+  select {
+    padding: 2px 4px;
+    font-size: 9pt;
+    border: 1px solid #999;
+    border-radius: 2px;
+    min-height: 18px;
+    background: white;
+  }
+
+  textarea {
+    padding: 2px 4px;
+    font-size: 9pt;
+    border: 1px solid #999;
+    border-radius: 2px;
+    min-height: 28px;
+    background: white;
+  }
+
+  /* ラジオ・チェックボックスグループをコンパクトに */
+  .radio-group,
+  .checkbox-group {
+    gap: 6px;
+    margin-top: 1px;
+  }
+
+  .radio-group label,
+  .checkbox-group label {
+    font-size: 8pt;
+    gap: 2px;
+  }
+
+  /* 2列レイアウトを印刷時も維持 */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .form-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+  }
+
+  /* ページブレーク制御 */
+  .form-section-title {
+    page-break-after: avoid;
+  }
+
+  .form-group {
+    page-break-inside: avoid;
+  }
+
+  /* チェックリスト印刷用 */
   .custom-checkbox {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
